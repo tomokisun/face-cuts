@@ -1,0 +1,21 @@
+@font-face {
+  font-family: Laviossa;
+  src: url(Laviossa-Medium.otf);
+  font-weight: medium;
+}
+
+body, a {
+  background-color: black;
+  color: white;
+  font-family: "Laviossa", Times, serif;
+  font-weight: medium;
+}
+
+main {
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  width: 100%;
+  text-align: center;
+}
