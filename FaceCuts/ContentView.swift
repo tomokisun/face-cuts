@@ -29,6 +29,7 @@ struct ContentView: View {
           .allowsHitTesting(false)
       }
     }
+    .overlay(StatusView(status: camera.status))
     .onChange(of: camera.selection) { _, newValue in
       Task {
         try await camera.loadBackgroundImage()
