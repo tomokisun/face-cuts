@@ -19,7 +19,12 @@ actor CaptureService {
   
   var defaultCamera: AVCaptureDevice {
     get throws {
-      guard let videoDevice = AVCaptureDevice.systemPreferredCamera else {
+      let discoverySession = AVCaptureDevice.DiscoverySession(
+        deviceTypes: [.builtInTrueDepthCamera, .builtInWideAngleCamera],
+        mediaType: .video,
+        position: .front
+      )
+      guard let videoDevice = discoverySession.devices.first else {
         throw CameraError.videoDeviceUnavailable
       }
       return videoDevice
