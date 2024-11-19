@@ -23,11 +23,17 @@ struct ContentView: View {
     )
     .overlay {
       if let buffer = camera.pixelBuffer, let image = UIImage(pixelBuffer: buffer) {
-        Image(uiImage: image)
-          .resizable()
-          .aspectRatio(contentMode: .fill)
-          .ignoresSafeArea()
-          .allowsHitTesting(false)
+        GeometryReader { proxy in
+          VStack(spacing: 0) {
+            Spacer()
+            Image(uiImage: image)
+              .resizable()
+              .aspectRatio(contentMode: .fill)
+              .allowsHitTesting(false)
+              .frame(height: proxy.size.height / 2)
+          }
+        }
+        .ignoresSafeArea()
       }
     }
     .overlay(StatusView(status: camera.status))
