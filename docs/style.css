@@ -1,13 +1,7 @@
-@font-face {
-  font-family: Laviossa;
-  src: url(Laviossa-Medium.otf);
-  font-weight: medium;
-}
-
 body, a {
   background-color: black;
   color: white;
-  font-family: "Laviossa", Times, serif;
+  font-family: ui-rounded, "SF Pro Rounded", system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif;
   font-weight: medium;
 }
 
