@@ -39,9 +39,11 @@ actor CaptureService {
       let camera = try defaultCamera
       
       try addInput(for: camera)
-      captureSession.sessionPreset = .photo
       
       try addOutput(videoCapture.output)
+      
+      captureSession.connections.forEach { $0.automaticallyAdjustsVideoMirroring = false }
+      captureSession.connections.forEach { $0.isVideoMirrored = true }
       
       createRotationCoordinator(for: camera)
       
