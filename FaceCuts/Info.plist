@@ -4,5 +4,16 @@
 <dict>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
+	<key>UIApplicationShortcutItems</key>
+	<array>
+		<dict>
+			<key>UIApplicationShortcutItemSubtitle</key>
+			<string>If you want to talk about product discuss</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>👋 Talk to Founder!</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>talk-to-founder</string>
+		</dict>
+	</array>
 </dict>
 </plist>
