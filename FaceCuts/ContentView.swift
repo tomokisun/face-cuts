@@ -37,6 +37,7 @@ struct ContentView: View {
       }
     }
     .overlay(StatusView(status: camera.status))
+    .sensoryFeedback(.selection, trigger: camera.selection)
     .onChange(of: camera.selection) { _, newValue in
       Task {
         try await camera.loadBackgroundImage()
