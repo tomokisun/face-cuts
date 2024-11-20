@@ -19,7 +19,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 @main
 struct FaceCutsApp: App {
   @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-  @State private var camera = CameraModel()
+  @State private var camera: Camera = CameraModel()
   
   var body: some Scene {
     WindowGroup {

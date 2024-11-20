@@ -4,7 +4,7 @@ import PhotosUI
 import CoreVideo
 
 @Observable
-class CameraModel {
+class CameraModel: Camera {
   private(set) var status = CameraStatus.unknown
   
   private(set) var pixelBuffer: CVPixelBuffer?

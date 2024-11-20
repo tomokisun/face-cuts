@@ -2,7 +2,7 @@ import SwiftUI
 import PhotosUI
 
 struct ContentView: View {
-  @State var camera: CameraModel
+  @State var camera: Camera
   
   var body: some View {
     PhotosPicker(selection: $camera.selection, matching: .images) {
@@ -43,4 +43,8 @@ struct ContentView: View {
       }
     }
   }
+}
+
+#Preview {
+  ContentView(camera: PreviewCameraModel())
 }

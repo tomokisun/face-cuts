@@ -13,6 +13,8 @@
 			<string>👋 Talk to Founder!</string>
 			<key>UIApplicationShortcutItemType</key>
 			<string>talk-to-founder</string>
+			<key>UIApplicationShortcutItemIconSymbolName</key>
+			<string>message</string>
 		</dict>
 	</array>
 </dict>
