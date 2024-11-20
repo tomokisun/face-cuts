@@ -25,11 +25,9 @@ struct FaceCutsApp: App {
     WindowGroup {
       ContentView(camera: camera)
         .statusBarHidden()
+        .persistentSystemOverlays(.hidden)
         .task {
           await camera.start()
-        }
-        .onOpenURL { url in
-          print(url)
         }
     }
   }
