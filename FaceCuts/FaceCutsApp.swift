@@ -1,4 +1,5 @@
 import SwiftUI
+import StoreKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate{
   func windowScene(_ windowScene: UIWindowScene, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
@@ -20,6 +21,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 struct FaceCutsApp: App {
   @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
   @State private var camera: Camera = CameraModel()
+  @Environment(\.requestReview) var requestReview
   
   var body: some Scene {
     WindowGroup {
@@ -28,6 +30,7 @@ struct FaceCutsApp: App {
         .persistentSystemOverlays(.hidden)
         .task {
           await camera.start()
+          requestReview()
         }
     }
   }
