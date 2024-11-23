@@ -16,11 +16,6 @@ struct ContentView: View {
           .ignoresSafeArea()
       }
     }
-    .background(
-      CameraPreview(session: camera.captureSession)
-        .allowsHitTesting(false)
-        .opacity(0.0)
-    )
     .overlay {
       if let buffer = camera.pixelBuffer, let image = UIImage(pixelBuffer: buffer) {
         GeometryReader { proxy in
