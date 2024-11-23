@@ -29,12 +29,11 @@ actor CaptureService {
     guard !isSetUp else { return }
     
     do {
-      let camera = try deviceLookup.frontCamera
-      
-      try addInput(for: camera)
-      
+      let device = try deviceLookup.frontCamera
+      let input = try addInput(for: device)
       try addOutput(videoCapture.output)
-
+      addConnection(input: input, output: videoCapture.output, device: device)
+      
       captureSession.connections.forEach {
         $0.automaticallyAdjustsVideoMirroring = false
         $0.isVideoMirrored = true
@@ -46,12 +45,14 @@ actor CaptureService {
       throw CameraError.setupFailed
     }
   }
-  
+}
+
+extension CaptureService {
   @discardableResult
   private func addInput(for device: AVCaptureDevice) throws -> AVCaptureDeviceInput {
     let input = try AVCaptureDeviceInput(device: device)
     if captureSession.canAddInput(input) {
-      captureSession.addInput(input)
+      captureSession.addInputWithNoConnections(input)
     } else {
       throw CameraError.addInputFailed
     }
@@ -60,9 +61,21 @@ actor CaptureService {
   
   private func addOutput(_ output: AVCaptureOutput) throws {
     if captureSession.canAddOutput(output) {
-      captureSession.addOutput(output)
+      captureSession.addOutputWithNoConnections(output)
     } else {
       throw CameraError.addOutputFailed
+    }
+  }
+  
+  private func addConnection(input: AVCaptureDeviceInput, output: AVCaptureOutput, device: AVCaptureDevice) {
+    let port = input.ports(for: .video, sourceDeviceType: device.deviceType, sourceDevicePosition: device.position)
+    let connection = AVCaptureConnection(inputPorts: port, output: output)
+    connection.automaticallyAdjustsVideoMirroring = false
+    connection.isVideoMirrored = true
+    connection.videoRotationAngle = 90
+    
+    if captureSession.canAddConnection(connection) {
+      captureSession.addConnection(connection)
     }
   }
 }
