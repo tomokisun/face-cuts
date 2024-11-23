@@ -6,6 +6,8 @@ actor CaptureService {
   nonisolated let captureSession = AVCaptureSession()
   nonisolated let videoCapture = VideoCapture()
   
+  private let deviceLookup = DeviceLookup()
+  
   var isAuthorized: Bool {
     get async {
       let status = AVCaptureDevice.authorizationStatus(for: .video)
@@ -14,20 +16,6 @@ actor CaptureService {
         isAuthorized = await AVCaptureDevice.requestAccess(for: .video)
       }
       return isAuthorized
-    }
-  }
-  
-  var defaultCamera: AVCaptureDevice {
-    get throws {
-      let discoverySession = AVCaptureDevice.DiscoverySession(
-        deviceTypes: [.builtInTrueDepthCamera, .builtInWideAngleCamera],
-        mediaType: .video,
-        position: .front
-      )
-      guard let videoDevice = discoverySession.devices.first else {
-        throw CameraError.videoDeviceUnavailable
-      }
-      return videoDevice
     }
   }
   
@@ -41,7 +29,7 @@ actor CaptureService {
     guard !isSetUp else { return }
     
     do {
-      let camera = try defaultCamera
+      let camera = try deviceLookup.frontCamera
       
       try addInput(for: camera)
       
